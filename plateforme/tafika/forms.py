@@ -1,6 +1,6 @@
 from django.core import validators
 from django import forms
-from .models import beneficiaire
+from .models import Beneficiaire
 
 # class BeneficiaireForm(forms.Form):
 #     class Meta:
@@ -9,7 +9,7 @@ from .models import beneficiaire
         
 class BeneficiaireRegistration(forms.ModelForm):
     class Meta:
-        model = beneficiaire
+        model = Beneficiaire
         fields = ['nom', 'prenom','matricule','numero_piece','type_piece','date_livrance','email','date_naissance','code_postal','sexe','adresse']
         widgets = {
                   'nom': forms.TextInput(attrs={'class': 'form-control'}),

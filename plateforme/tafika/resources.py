@@ -1,6 +1,6 @@
 from import_export import resources
-from .models import beneficiaire
+from .models import Beneficiaire
 
 class BeneficiaireResource(resources.ModelResource):
     class Meta:
-        model = beneficiaire
+        model = Beneficiaire

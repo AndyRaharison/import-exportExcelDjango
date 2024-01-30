@@ -109,7 +109,7 @@
                             {{person.adresse}}
                         </td>
                         <td class="flex items-center px-6 py-4">
-                            <a href="{% url 'modification' person.id%}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
+                            <a href="{% url 'modifier_beneficiaire' person.id%}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Modifier</a>
                             <form action="{% url 'suppression' person.id %}" method="post">
                                 {% csrf_token %}
                             <input type="submit"  class="btn font-medium text-red-600 dark:text-red-500 hover:underline ms-3" value = "Supprimer">
