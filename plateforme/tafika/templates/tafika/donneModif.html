@@ -32,45 +32,10 @@
 
     {% csrf_token %}
         <h1>Modifications enregistrées</h1>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Matricule</th>
-                    <th>Numéro de Pièce</th>
-                    <th>Type de Pièce</th>
-                    <th>Date de Livraison</th>
-                    <th>Téléphone</th>
-                    <th>Email</th>
-                    <th>Date de Naissance</th>
-                    <th>Code Postal</th>
-                    <th>Sexe</th>
-                    <th>Adresse</th>
-                    <th>Date de Modification</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for beneficiaire_modifie in beneficiaires_modifies %}
-                    <tr>
-                        <td>{{ beneficiaire_modifie.id }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.nom }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.prenom }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.matricule }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.numero_piece }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.type_piece }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.date_livrance }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.telephone }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.email }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.date_naissance }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.code_postal }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.sexe }}</td>
-                        <td>{{ beneficiaire_modifie.beneficiaire.addresse }}</td>
-                        <td>{{ beneficiaire_modifie.date_modification }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <ul>
+        {% for beneficiaire_modifie in beneficiaires_modifies %}
+            <li>{{ beneficiaire_modifie.date_modification }} - {{ beneficiaire_modifie.beneficiaire.nom }} {{ beneficiaire_modifie.beneficiaire.prenom }}</li>
+        {% endfor %}
+    </ul>
 
 {%endblock%}
