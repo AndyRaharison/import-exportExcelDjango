@@ -1,41 +1,126 @@
 
 {% extends 'tafika/home.html'%}
 {% block content%}
-{% comment %} {% extends 'base.html' %}
+    <div>
+    {%if beneficiaires_modifies%}
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                date de modification
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Nom
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Prenom
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Matricule
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Numero Piece
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                type piece
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                date livrance
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                telephone
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                date de naissance
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                code postale
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                sexe
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                adresse
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for beneficiaire_modifie in beneficiaires_modifies %}
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        {% comment %} <td class="w-4 p-4">
+                            <div class="flex items-center">
+                                <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
+                            </div>
+                        </td> {% endcomment %}
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.date_modification }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.nom }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.prenom }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.matricule }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.numero_piece }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.type_piece }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.date_livrance }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.telephone }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.date_naissance }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.code_postal }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.sexe }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ beneficiaire_modifie.beneficiaire.adresse }}
+                        </td>
+    
+                        </tr>
+                        {% endfor%}
+                     </tbody>
+            </table>
+        </div> 
+        <div class="pagination">
+            <span class="step-links">
+                {% if beneficiaires_modifies.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ beneficiaires_modifies.previous_page_number }}">previous</a>
+                {% endif %}
 
-{% block content %}
-    <h1>Liste des modifications</h1>
+                <span class="current">
+                    Page {{ beneficiaires_modifies.number }} of {{ beneficiaires_modifies.paginator.num_pages }}.
+                </span>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Bénéficiaire</th>
-                <th>Champ modifié</th>
-                <th>Valeur précédente</th>
-                <th>Valeur actuelle</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for form in form %}
-                <tr>
-                    <td>{{ modifierBeneficiaire.nom }}</td>
-                    <td>{{ modifierBeneficiaire.prenom }}</td>
-                    <td>{{ modifierBeneficiaire.matricule }}</td>
-                    <td>{{ modifierBeneficiaire.numere_piece }}</td>
-                    <td>{{ modifierBeneficiaire.type_piece }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endblock %} {% endcomment %}
-
-    {% csrf_token %}
-        <h1>Modifications enregistrées</h1>
-    <ul>
-        {% for beneficiaire_modifie in beneficiaires_modifies %}
-            <li>{{ beneficiaire_modifie.date_modification }} - {{ beneficiaire_modifie.beneficiaire.nom }} {{ beneficiaire_modifie.beneficiaire.prenom }}</li>
-        {% endfor %}
-    </ul>
-
+                {% if beneficiaires_modifies.has_next %}
+                    <a href="?page={{ beneficiaires_modifies.next_page_number }}">next</a>
+                    <a href="?page={{ beneficiaires_modifies.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {%else%}
+        <h3 class="justify-center text-center">pas d'importation</h3>
+    {%endif%}
+</div>
 {%endblock%}
