@@ -7,6 +7,7 @@
             <button type="submit"> telecharger</button>
     </form> 
 </div>
+<a href="{% url 'donne_modif' %}">voir modification</a>
 <div>
     {%if benefici%}
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -120,11 +121,28 @@
                      </tbody>
             </table>
         </div> 
+        
     {%else%}
         <h3 class="justify-center text-center">pas d'importation</h3>
     {%endif%}
 </div>
+<div class="pagination">
+            <span class="step-links">
+                {% if beneficiaires_pages.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ beneficiaires_pages.previous_page_number }}">previous</a>
+                {% endif %}
 
+                <span class="current">
+                    Page {{ beneficiaires_pages.number }} of {{ beneficiaires_pages.paginator.num_pages }}.
+                </span>
+
+                {% if beneficiaires_modifies.has_next %}
+                    <a href="?page={{ beneficiaires_pages.next_page_number }}">next</a>
+                    <a href="?page={{ beneficiaires_pages.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
 {% comment %} <form method= "post" enctype="multipart/form-data" class="flex items-center space-x-6">
   <div class="shrink-0">
     <img class="h-16 w-16 object-cover rounded-full" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80" alt="Current profile photo" />

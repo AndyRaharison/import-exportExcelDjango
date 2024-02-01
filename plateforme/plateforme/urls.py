@@ -17,15 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from tafika import views
-from tafika.views import  afficher_modifications, modifier_beneficiaire
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.importation, name='liste'),
     path('delete/<int:id>/', views.suppression, name='suppression'),
-    path('', views.afficher_modifications, name='afficher_modifications'),
+    path('afficher_modifications', views.afficher_modifications, name='afficher_modifications'),
     path('<int:beneficiaire_id>/', views.modifier_beneficiaire, name='modifier_beneficiaire'),
+    path('donne_modif', views.afficher_modifications, name='donne_modif'),
 
     
     

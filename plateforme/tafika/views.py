@@ -1,9 +1,9 @@
 from django.shortcuts import render , HttpResponseRedirect, get_object_or_404 , redirect
 from .resources import BeneficiaireResource
-from django.contrib import messages
 from tablib import Dataset
 from .forms import BeneficiaireRegistration
 from .models import Beneficiaire, BeneficiaireModifie 
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -13,7 +13,16 @@ def afficher(request):
 
 def afficher_modifications(request):
     beneficiaires_modifies = BeneficiaireModifie.objects.all()
-    return render(request, 'tafika/afficher_modifications.html', {'beneficiaires_modifies': beneficiaires_modifies})
+    
+    # Nombre d'éléments à afficher par page
+    elements_par_page = 3
+    paginator = Paginator(beneficiaires_modifies, elements_par_page)
+    # Récupérez le numéro de la page à afficher
+    page = request.GET.get('page', 1)
+    # Obtenez les éléments de la page spécifiée
+    beneficiaires_modifies_page = paginator.get_page(page)
+    
+    return render(request, 'tafika/donneModif.html', {'beneficiaires_modifies': beneficiaires_modifies_page})
 
     
 
@@ -42,9 +51,15 @@ def importation(request):
         value.save()
 
     benef = Beneficiaire.objects.all() 
-    messages = "donnees importer"
+     # Nombre d'éléments à afficher par page
+    elements_par_page = 3
+    paginator = Paginator(benef, elements_par_page)
+    # Récupérez le numéro de la page à afficher
+    page = request.GET.get('page', 1)
+    # Obtenez les éléments de la page spécifiée
+    beneficiaires_pages = paginator.get_page(page)
     
-    return render(request,'tafika/liste.html',{'benefici':benef} )
+    return render(request,'tafika/liste.html',{'benefici':beneficiaires_pages} )
 
 #suppression des donnees
 
@@ -64,7 +79,7 @@ def modifier_beneficiaire(request, beneficiaire_id):
         if form.is_valid():
             form.save()
             # Après la modification, vous pouvez rediriger vers une page spécifique ou afficher un message de succès
-            return redirect('tafika/donneModif.html')
+            return redirect('afficher_modifications')
     else:
         form = BeneficiaireRegistration(instance=beneficiaire)
 
